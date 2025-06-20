@@ -98,7 +98,19 @@ pub fn parse(path: &OsString) -> () {
         None => return
     };
 
-    
+    // get the title string either from the directory or the file name.
+    // If we can't get it from either return
+    let title_string = match(get_title_end_pos(directory)) {
+        Some(end_pos) => {
+            &directory[..end_pos]
+        },
+        None => {
+            let Some(end_pos) = get_title_end_pos(file_name) else {
+                return;
+            };
+            &file_name[..end_pos]
+        }
+    };
 
 }
 
